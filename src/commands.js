@@ -1,6 +1,6 @@
 const {program} = require('commander')
 const {prompt} = require('inquirer')
-const {addTask, listTask, removeTask, updateTask} = require('./controllers/task.controller')
+const {addTask, listTask, removeTask, updateTask, findTask} = require('./controllers/task.controller')
 
 const taskQuestions = [{
     type: 'input', message: 'Task title', name: 'title'
@@ -28,6 +28,11 @@ program
 program
     .command('update <id>')
     .action(async (_id) => updateTask(_id, await prompt(taskQuestions)))
+    .alias('u')
+
+program
+    .command('find <query>')
+    .action(async (query) => findTask(query))
     .alias('u')
 
 program.parse(process.argv)
